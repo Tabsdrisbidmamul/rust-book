@@ -63,7 +63,7 @@ fn main() {
     let x: i8 = 5;
     let y: Option<i8> = Some(5);
 
-    let sum = x + y;
+    // let sum = x + y;
 }
 
 // fn route(ip_kind: IpAddrKind) {}
