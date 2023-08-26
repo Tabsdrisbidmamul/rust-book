@@ -1,12 +1,4 @@
-use std::{error::Error, fs};
-
-pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
-    let contents = fs::read_to_string(config.file_path)?;
-
-    println!("With text:\n{contents}");
-
-    Ok(())
-}
+use std::{error::Error, fs, vec};
 
 pub struct Config {
     pub query: String,
@@ -23,5 +15,41 @@ impl Config {
         let file_path = args[2].clone();
 
         Ok(Config { query, file_path })
+    }
+}
+
+pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
+    let contents = fs::read_to_string(config.file_path)?;
+
+    println!("With text:\n{contents}");
+
+    Ok(())
+}
+
+pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+    let mut found_elements: Vec<&'a str> = Vec::with_capacity(10);
+
+    for line in contents.lines() {
+        if line.contains(query) {
+            found_elements.push(line);
+        }
+    }
+
+    found_elements
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn one_result() {
+        let query = "safe, fast, productive.";
+        let contents = "\
+Rust:
+safe, fast, productive.
+Pick three.";
+
+        assert_eq!(vec!["safe, fast, productive."], search(query, contents));
     }
 }
