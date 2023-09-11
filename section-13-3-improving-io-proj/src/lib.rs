@@ -57,6 +57,19 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
         .collect()
 }
 
+/// Case insensitive search, based on contents.
+///
+/// # Examples
+/// ```
+///
+/// let query = "duct";
+/// let contents = "\
+/// Rust:
+/// safe, fast, productive.
+/// Pick three.";
+///
+/// assert_eq!(vec!["safe, fast, productive."], section_13_3_improving_io_proj::search(query, contents))
+/// ```
 pub fn search_case_insensitive<'a>(query: &str, content: &'a str) -> Vec<&'a str> {
     let mut found_elements: Vec<&'a str> = Vec::with_capacity(10);
 
