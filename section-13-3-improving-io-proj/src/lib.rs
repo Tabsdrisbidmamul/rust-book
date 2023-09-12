@@ -50,6 +50,18 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
+/// Search text file based on query and returns a vector containing the strings, with a lifetime that is the same as the text file's content string.
+/// # Example
+/// ```
+/// let query = "duct";
+/// let contents = "\
+/// Rust:
+/// safe, fast, productive.
+/// Pick three.";
+///
+/// assert_eq!(vec!["safe, fast, productive."], section_13_3_improving_io_proj::search(query, contents));
+/// ```
+///
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     contents
         .lines()
